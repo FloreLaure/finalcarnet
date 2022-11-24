@@ -1,0 +1,15 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<header class="header">
+
+    <a href="{% static 'image/logo.png' %}" class="logo"> <i class="fas fa-heartbeat"></i> medcare. </a>
+    <nav class="navbar">
+       <a href="{% url 'index' %}">Accueil</a>
+		<a href="{% url 'Compte' %}">Créer un compte</a>
+		<a href="{% url 'login' %}">Se connecter</a>
+		<a href='#feature'>A propos</a>    
+	</nav>
+</header>
+
+		

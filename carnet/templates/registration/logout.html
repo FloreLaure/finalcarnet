@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+
+{% block content %}
+
+<section id="contact">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <h2 class="text-uppercase">Connectez-vous à votre compte</h2>
+                            <p> </p><br>
+                            <address>
+                                
+                               
+                            </address>
+                        </div>
+         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <div class="contact-form">
+                                <form action="" method="POST" enctype="multipart/form-data">
+
+
+                                    {% csrf_token %}
+
+                                    
+
+                                    <div class="col-md-12">
+
+                                    <input type="text" class="form-control" name="username" placeholder="Nom" />
+
+                                     </div>
+
+                                    <div class="col-md-12">
+
+                              <input type="password" class="form-control" name="password" placeholder="mot de pass" />
+
+                                    </div>
+
+
+
+                                  
+
+                                  
+                                    <div class="col-md-4">
+                                         <input  type="submit" 
+            class="btn btn-primary" value="Se déconnecter" >
+                                    </div>     
+                                </form>
+                            </div>
+                        </div>
+
+                         </div>
+                </div>
+            </div>
+              <div class="row">
+    {% if comptInfo %}
+        <div class="card" style="width: 18rem;">
+        {% for key, value in comptInfo.items %} 
+          <div class="card-body">
+            <h5 class="card-title">
+                <span class="info"> Your {{key}}</span> 
+                : {{value}}
+            </h5>
+          </div>
+        {% endfor %}
+       </div> 
+    {% endif %} 
+    </div>
+        </section>
+        <!-- end contact -->
+
+
+
+
+        
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/wow.min.js' %}"></script>
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+
+
+{% endblock %}
+        
+    </body>
+</html>

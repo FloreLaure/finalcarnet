@@ -1,0 +1,135 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block header %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+{% block content %}
+
+
+<section class="home" id="home">
+
+    <div class="image">
+        <img src="{% static 'image/home-img.svg' %}">
+    </div>
+
+    <div class="content">
+        <h3>Bienvenue à E-Karnet</h3>
+        <p>Vos informations médicales dans le cloud accessible partout en tout temps et de façon sécurisé et confidentiel</p>
+        <a href="#" class="btn"> contact us <span class="fas fa-chevron-right"></span> </a>
+    </div>
+
+</section>
+
+
+<!-- about section starts  -->
+
+<section class="about" id="about">
+
+    <h1 class="heading"> <span>A </span> propos </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="{% static 'image/about-img.svg' %}">
+        </div>
+
+        <div class="content">
+            <h3>Pourquoi E-Karnet????</h3>
+            <p>Le carnet de santé est un élement essentiel sur la santé d'un individus.La preuve est que à chaque fois qu'un individus se rend dans un centre de santé pour n'importe quel soins, ce  document est solicité.</p>
+                        <p style="font-size:17px;"> En effet il contient toutes les informations sur la santé d'un individus et les données qui s'y trouvent sont individuelles et confidentielles.</p>
+                        <p style="font-size:17px;"> Ce pendant sa perte,son oublie et son remplissage obligent les patient à s'en procurer un nouveau encore et encore ,favorisant ainsi la dispersion, la meconnaissance de l'information médical du patient par le personnel soignant.Conséquence, des patients se font administrer des substances qu'ils ne supportent pas ,entrainant de nombreuses conséquences sanitaires désolant sur ces desniers.</p>
+            <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- about section ends -->
+
+<!-- booking section starts   -->
+
+<section class="book" id="book">
+
+    <h1 class="heading"> <span>A</span> propos </h1>    
+
+    <div class="row">
+
+        <div class="image">
+            <img src="{% static 'image/book-img.svg' %}">
+        </div>
+
+            <h2 class="text-uppercase" style="font-size:20px;"> C'est quoi e-Karnet ????</h2>
+
+         <form>
+                        <p style="font-size:17px;">E-Karnet, le carnet de santé numerique qui stoque toutes vos informations médicales depuis même la naissance si vous le voulez ,vient resoudre les problèmes cités plus haut.</p>
+                        <p style="font-size:17px;"> E-Karnet est une plateformes qui permet à tout individus de posséder son  carnet de santé dans le cloud ,accessible toujours et en tout lieu ,de manière confidentielle une fois le compte créer.</p>
+
+<a href="{% url 'Compte' %}" class="btn"> Creer votre compte <span class="fas fa-chevron-right"></span> </a>
+</form>
+
+
+    </div>
+
+</section>
+
+<!-- booking section ends -->
+
+<!-- review section starts  -->
+
+<section class="review" id="review">
+    
+    <h1 class="heading"> client's <span>review</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+                        <img src="{% static 'image/pic-2.png' %}">
+
+            <h3>john deo</h3>
+            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente minus voluptatem, reiciendis consequuntur optio dolorem!</p>
+        </div>
+
+        <div class="box">
+            <img src="{% static 'image/pic-2.png' %}">
+            <h3>john deo</h3>
+            
+            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente minus voluptatem, reiciendis consequuntur optio dolorem!</p>
+        </div>
+
+        <div class="box">
+            <img src="{% static 'image/pic-3.png' %}">
+            <h3>john deo</h3>
+
+            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam sapiente nihil aperiam? Repellat sequi nisi aliquid perspiciatis libero nobis rem numquam nesciunt alias sapiente minus voluptatem, reiciendis consequuntur optio dolorem!</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+<script src="{% static 'js/script.js' %}"></script>
+
+
+
+        {% endblock %}
+
+        </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+
+{% block content %}
+
+<section id="contact">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <h2 class="text-uppercase">Connectez-vous à votre compte</h2>
+                            <p> </p><br>
+                            <address>
+                                
+                               
+                            </address>
+                        </div>
+         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <div class="contact-form">
+                                <form action="" method="POST" enctype="multipart/form-data">
+
+
+                                    <div class="col-md-12">
+                                     {% csrf_token %}
+
+                                    {{ form|crispy }}
+                                </div>
+
+
+                                  
+
+                                  
+                                    <div class="col-md-4">
+                                         <input  type="submit" 
+            class="btn btn-primary" value="Se connecter" >
+                                    </div>     
+                                </form>
+                            </div>
+                        </div>
+
+                         </div>
+                </div>
+            </div>
+              
+    </div>
+        </section>
+        <!-- end contact -->
+
+
+
+
+        
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/wow.min.js' %}"></script>
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+
+
+{% endblock %}
+        
+    </body>
+</html>

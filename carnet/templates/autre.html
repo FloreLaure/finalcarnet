@@ -1,0 +1,116 @@
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+{% block content %}
+                    {% include 'carnet.html' %}
+<section id="tabl">
+	<table class="table table-striped table-bordered table-sm">  
+    <thead class="thead-dark">  
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Episode essentiels de maladie</th>
+      <th scope="col">Prescription-Observations</th>
+      <th scope="col">Prescripteur</th>
+      <th scope="col">Lieu</th>
+      <th scope="col">fichier joint</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for autr in autres %}
+    <tr>
+      <td>{{autr.date}}</td>
+      <td>{{autr.Episode_essentiels_de_maladie}}</td>
+      <td>{{autr.Prescription_Observations}}</td>
+      <td>{{autr.Prescripteur}}</td>
+      <td>{{autr.lieu}}</td>
+      <td>{{autr.fichier}}</td>
+      
+    </tr>
+    
+
+    {% endfor %} 
+  </tbody>
+</table> -->
+
+<!-- <body>  
+<form method="POST" class="post-form" action="ajouAutre/">  
+        {% csrf_token %}  
+    <div class="container">  
+<br>  
+   
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Date</label>  
+    <div class="col-sm-4">  
+      {{ form.date }}  
+    </div>  
+  </div> 
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Episode essentiels de maladie</label>  
+    <div class="col-sm-4">  
+      {{ form.Episode_essentiels_de_maladie }} 
+      </div>
+      </div>  
+   <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Prescription-Observations</label>  
+    <div class="col-sm-4">  
+      {{ form.Prescription_Observations }}  
+    </div>  
+  </div>
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Prescripteur</label>  
+    <div class="col-sm-4">  
+      {{ form.Prescripteur }} 
+      </div>
+      </div>  
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Lieu</label>  
+    <div class="col-sm-4">  
+      {{ form.ename }} 
+      </div>
+      </div> 
+
+      <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Fichier</label>  
+    <div class="col-sm-4">  
+      {{ form.fichier }} 
+      </div>
+      </div>
+
+
+       <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+     <p> <h3>Du nouveaux ?? <a href="{% url 'ajouAutre' %}" class="btn btn-primary">Ajouter</a> </h3></p><br><br>    </div>  
+  </div>  
+    </div>  
+</form>  
+   -->
+
+<br><br>
+
+  
+
+</section><br><br>
+
+<center><a href="{% url 'ajouAutre' %}" class="btn btn-primary">Add New Record</a></center>  
+
+
+    {% endblock %}
+  </body>
+</html>
+
+
+ 
+
+

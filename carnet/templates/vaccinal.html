@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+{% block content %}
+                    {% include 'carnet.html' %}
+<section id="tabl2">
+	<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Vaccins</th>
+      <th scope="col">Dose</th>
+      <th scope="col">Prescripteur</th>
+      <th scope="col">Lieu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">{{vaccin.date}}</th>
+      <td>{{vaccin.Vaccin}}</td>
+      <td>{{vaccin.Prescription_Observations}}</td>
+      <td>{{vaccin.Prescripteur}}</td>
+      <td>{{vaccin.lieu}}</td>
+
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>@mdo</td>
+
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry the Bird</td>
+      <td>@twitter</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+
+    </tr>
+  </tbody>
+</table><br><br>
+
+      <p> <h3 style="text-align: center;">Du nouveaux ?? <a href="{% url 'ajouvaccin' %}" class="btn btn-primary">Ajouter</a> </h3></p><br><br>  
+
+
+
+</section><br><br>
+
+ 
+    
+
+    {% endblock %}
+  </body>
+</html>

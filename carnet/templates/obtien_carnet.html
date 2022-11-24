@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+
+{% block content %}
+
+<section id="contact">
+            <div class="overlay">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <h2 class="text-uppercase">Creer votre compte</h2>
+                            <p>Vous voulez enfin stocker vos informations médicales dans le cloud ??  Remplissez ce formulaire pour obtenir votre carnet de santé numérique.  </p><br>
+                            <address>
+                                
+                                <p>Avec Karnet, Plus besoins de manipuler un carnet de santé physique</p>
+                            </address>
+                        </div>
+
+                        
+                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+                            <div class="contact-form">
+                                <form action="" method="POST">
+{% csrf_token %}
+
+                                   
+                                <div class="col-md-12">
+                <label for="nom">Nom:</label>
+                <input type="text" class="form-control" id="nom" name="Nom">
+                                </div>
+
+
+                             <div class="col-md-12">
+            <label for="prenom">Prenom:</label>
+            <input type="text" class="form-control" id="prenom" name="Prenom">
+                                </div>
+
+ <div class="col-md-12">
+                <label for="naiss">Date de naissance:</label>
+                <input type="date" class="form-control" id="naiss" name="Date_de_naissance">
+                                </div>
+
+
+ <div class="col-md-12">
+                <label for="job">Profession:</label>
+                <input type="text" class="form-control" id="job" name="Profession">
+                                </div>
+
+
+ <div class="col-md-12">
+                <label for="secteur">Localité:</label>
+                <input type="text" class="form-control" id="secteur" name="Secteur_ou_village">
+                                </div>
+
+
+             <div class="col-md-12">
+                <label for="sexe">Sexe:</label>
+                <input type="radio" class="form-control" id="sexe" name="sexe">
+                <input type="radio" class="form-control" id="sexe" name="sexe">
+
+                                </div>
+
+
+ <div class="col-md-12">
+                <label for="photo">Photo:</label>
+                <input type="text" class="form-control" id="photo" name="photo">
+                                </div>
+
+
+
+                                <div class="col-md-4">
+                                        <input type="submit" class="form-control text-uppercase" value="Send">
+                                    </div>
+
+
+
+                                    
+                               
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+              <div class="row">
+    </div>
+        </section>
+        <!-- end contact -->
+
+
+
+
+        
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/wow.min.js' %}"></script>
+        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+        <script src="{% static 'js/custom.js' %}"></script>
+
+
+{% endblock %}
+        
+    </body>
+</html>

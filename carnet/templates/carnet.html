@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block navbar %}
+
+            {% include 'nav.html' %}
+            
+{% endblock %}
+
+{% block content %}
+
+
+	<section id="feature1">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+						<!-- <img src="{% static 'images/software-img.png' %}" class="img-responsive" alt="feature img"> -->
+						    <img src="{{user.Photo.url}}" alt="Smiley face" width="250" height="250" class="img-responsive" alt="feature img">
+					</div>
+					<div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+
+						<h2 class="text-uppercase">Carnet de santé de:						  
+</h2><br>
+						<p style="font-size:25px ;">Nom: {{user.Nom}}<br>
+							Prénom: {{user.Prenom}}<br>
+							Sexe: {{user.sexe}}<br>
+							Date de naissance: {{user.Date_de_naissance}}<br>
+							Profesion:{{user.Profession}}<br>
+							Secteur ou village: {{user.Secteur_ou_village}}<br>
+						</p>
+						 
+
+						
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section id="pricing">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 wow bounceIn">
+						<h2 class="text-uppercase">les antécedants médicaux</h2>
+					</div>
+					<div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+						<div class="pricing text-uppercase">
+							<div class="pricing-title">
+								<h4>Antécédants Familiaux</h4>
+								
+							</div>
+							
+							<p> Ici vous verrez les maladies héréditaires de {{user.Nom}} {{user.Prenom}}</p>
+			<a href="{% url 'familiaux' %}" class="btn btn-primary" id="tab1">Voir</a>												</div>
+					</div>
+					<div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+						<div class="pricing active text-uppercase">
+							<div class="pricing-title">
+								<h4>Antécédants vaccinals</h4>
+								
+								<small class="text-lowercase">monthly</small>
+							</div>
+						<p>
+							Les détails sur les doses de vaccins préalablement fait par {{user.Nom}} {{user.Prenom}}.  
+						</p>
+									<a href="{% url 'vaccinal' %}" class="btn btn-primary">Voir</a>						</div>
+					</div>
+					<div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+						<div class="pricing text-uppercase">
+							<div class="pricing-title">
+								<h4>Autres</h4>
+							</div>
+							<p>
+								Les détails sur les différentes services sanitaires(consultation,soins,prescription,...) reçut par {{user.Nom}} {{user.Prenom}}
+							</p>
+							.
+			<a href="{% url 'autre' %}" class="btn btn-primary" id="tab">Voir</a>												</div>
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<!-- end pricing -->
+
+
+
+
+<script src="{% static 'js/jquery.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script src="{% static 'js/wow.min.js' %}"></script>
+		<script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+		<script src="{% static 'js/custom.js' %}"></script>
+
+		{% endblock content %}
+</body>
+</html>
