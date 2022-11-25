@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'finalProject.wsgi.application'
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    'e-karnet.herokuapp.com'
+    'final-carnet.herokuapp.com'
 ]
 
 
