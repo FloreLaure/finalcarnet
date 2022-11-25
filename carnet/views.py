@@ -17,9 +17,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
 
-famille=familiaux
-autr=autre
-vaccin=vaccinal
+
 
 
 ## La vue index pour la page d'accueil
@@ -186,20 +184,21 @@ def update(request, id):
 
 
 def Compte(request):
-    form = CompteForm
+    form = CompteForm()
     if request.method == "POST":
-        form = CompteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Compte was add")
-            return redirect('login')
-        else:
-            return render(request, 'compte.html', {"form":form})
-       
-    else:
-        form = CompteForm
-        return render(request, 'compte.html', {"form":form})
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
 
+
+        donnee = User.objects.create(username=username, password1=password1, password2=password2)
+
+
+        donnee.save()        
+        return redirect('login')
+    else:
+        return render(request, 'compte.html', {"form":form})
+       
 
 
 
@@ -228,7 +227,14 @@ def Carnet(request):
     else:
         return render(request, 'obtien_carnet.html', {'form':form})
 
-        
+
+
+def sante(request): 
+
+    donne=Carnet_user.objects.all()
+
+
+
 
 
 

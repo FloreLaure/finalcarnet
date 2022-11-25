@@ -44,7 +44,7 @@ class familiaux (models.Model):
 
 class vaccinal (models.Model):
     date = models.DateField(default=datetime.now)   
-    Vaccin= models.CharField(max_length=30)
+    Vaccin = models.CharField(max_length=30)
     Prescription_Observations = models.TextField()
     Prescripteur = models.CharField(max_length=30)
     lieu = models.CharField(max_length=30, default='hopital')
@@ -81,7 +81,6 @@ class Carnet_user (models.Model):
     Secteur_ou_village = models.CharField(max_length=30, null=True)
     sexe = models.CharField(max_length=6,choices=choix,default=Masculin, null=True)
     photo = models.ImageField(upload_to='upload/')
-
    
 
     def __str__(self):

@@ -55,6 +55,8 @@ class CompteForm(UserCreationForm):
         }),
         help_text=("Entrer le même mot de passe")
     )
+
+    
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         # exclude = ['username']

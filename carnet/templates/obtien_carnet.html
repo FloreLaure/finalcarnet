@@ -12,101 +12,68 @@
 
 {% block content %}
 
-<section id="contact">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <h2 class="text-uppercase">Creer votre compte</h2>
-                            <p>Vous voulez enfin stocker vos informations médicales dans le cloud ??  Remplissez ce formulaire pour obtenir votre carnet de santé numérique.  </p><br>
-                            <address>
+
+
+
+
+                    
+                        <section class="book" id="book">
+
+    <h1 class="heading"> <span>book</span> now </h1>    
+
+    <div class="row">
+
+        <div class="image">
+  <h2 class="text-uppercase" style="font-size:45px ">Creer votre carnet</h2>
+                            <p style="font-size:25px ;">Vous voulez enfin stocker vos informations médicales dans le cloud ??  Remplissez ce formulaire pour obtenir votre carnet de santé numérique.  </p><br>     
+
+<p style="font-size:25px ;">Avec Karnet, Plus besoins de manipuler un carnet de santé physique</p>
+                              </div>
+
                                 
-                                <p>Avec Karnet, Plus besoins de manipuler un carnet de santé physique</p>
-                            </address>
-                        </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+            <h3>Renseigner le formulaire</h3>
+            
+            <input type="texte" class="form-control" placeholder="Nom" class="box" id="nom" name="Nom">
 
-                        
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="contact-form">
-                                <form action="" method="POST">
-{% csrf_token %}
+            <input type="text" class="form-control" placeholder="Prenom" class="box" id="prenom" name="Prenom">
 
-                                   
-                                <div class="col-md-12">
-                <label for="nom">Nom:</label>
-                <input type="text" class="form-control" id="nom" name="Nom">
-                                </div>
+           <input type="date" class="box" id="naiss" placeholder="Date de naissance" name="Date_de_naissance">
 
 
-                             <div class="col-md-12">
-            <label for="prenom">Prenom:</label>
-            <input type="text" class="form-control" id="prenom" name="Prenom">
-                                </div>
-
- <div class="col-md-12">
-                <label for="naiss">Date de naissance:</label>
-                <input type="date" class="form-control" id="naiss" name="Date_de_naissance">
-                                </div>
+                <input type="text" class="form-control" placeholder="Profession" class="box" id="job" name="Profession">
 
 
- <div class="col-md-12">
-                <label for="job">Profession:</label>
-                <input type="text" class="form-control" id="job" name="Profession">
-                                </div>
+                <input type="text" class="form-control" placeholder="Localité" class="box" id="secteur" name="Secteur_ou_village">
+                                
 
 
- <div class="col-md-12">
-                <label for="secteur">Localité:</label>
-                <input type="text" class="form-control" id="secteur" name="Secteur_ou_village">
-                                </div>
+                <input type="radio" class="form-control" class="box" id="sexe" name="sexe">
+                <input type="radio" class="form-control" class="box" id="sexe" name="sexe">
+
+                                
 
 
-             <div class="col-md-12">
-                <label for="sexe">Sexe:</label>
-                <input type="radio" class="form-control" id="sexe" name="sexe">
-                <input type="radio" class="form-control" id="sexe" name="sexe">
+ 
+            <input type="text" class="form-control" id="photo" placeholder="Photo" class="box" name="photo">
 
-                                </div>
-
-
- <div class="col-md-12">
-                <label for="photo">Photo:</label>
-                <input type="text" class="form-control" id="photo" name="photo">
-                                </div>
-
-
-
-                                <div class="col-md-4">
-                                        <input type="submit" class="form-control text-uppercase" value="Send">
-                                    </div>
-
-
-
-                                    
-                               
-
-
+            <input type="Enregistrer" value="book now" class="btn">
+        </form>
 
 
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-              <div class="row">
-    </div>
+           
         </section>
-        <!-- end contact -->
 
 
 
 
-        
-        <script src="{% static 'js/jquery.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'js/wow.min.js' %}"></script>
-        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
-        <script src="{% static 'js/custom.js' %}"></script>
+
+<script src="{% static 'js/script.js' %}"></script>
 
 
 {% endblock %}

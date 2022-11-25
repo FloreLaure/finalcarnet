@@ -12,63 +12,36 @@
 
 {% block content %}
 
-<section id="contact">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <h2 class="text-uppercase"> du nouveau ?? <br> renseignez le formulaire </h2><br>
-                            <address>
+
+
+
+            
+                        <section class="book" id="book">
+
+    <h1 class="heading"> <span>book</span> now </h1>    
+
+    <div class="row">
+
+        <div class="image">
+        </div>
+
+
+                         {% csrf_token %}
+                                <form action="" method="POST">
+                <input type="date" placeholder="Date" class="box" id="date" name="date">
                                 
-                            </address>
-                        </div>
-                        <div class=" wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="contact-form">
-                           <form action="" method="POST" enctype="multipart/form-data">
 
-                                     {% csrf_token %}
-                                   
-                                    <div class="col-md-9">
-                        <label for="date">Date:</label>
-                <input type="date" class="form-control" id="date" name="date">
-                                </div>
+                <input type="text" placeholder="Tare" class="box" id="tare" name="tare">
+                     
+                <input type="text" placeholder="Prescription/observation" class="box" id="presciption" name="Prescription_Observations">
 
-                                        <div class="col-md-9">
-                        <label for="tare">Tare:</label>
-                <input type="text" class="form-control" id="tare" name="tare">
-                                </div>
-
-
-                                        <div class="col-md-9">
-                        <label for="presciption">Prescription/Observations:</label>
-                <input type="text" class="form-control" id="presciption" name="Prescription_Observations">
-                                </div>
-
-
-                                        <div class="col-md-9">
-                        <label for="Prescripteur">Prescripteur:</label>
-                <input type="text" class="form-control" id="Prescripteur" name="Prescripteur">
-                                </div>
-
-
-                                        <div class="col-md-9">
-                        <label for="lieu">Lieu:</label>
-                <input type="text" class="form-control" id="lieu" name="lieu">
-                                </div>
-
-
-                                        <div class="col-md-9">
-                        <label for="fichier">Fichier:</label>
-                <input type="text" class="form-control" id="fichier" name="fichier">
-                                </div>
+<input type="text" placeholder="Prescripteur" class="box" id="Prescripteur" name="Prescripteur">
+                <input type="text" placeholder="Lieu" class="box" id="lieu" name="lieu">
                                 
-                                    
 
-
-                                  
-                                    <div class="col-md-4">
-                                         <input  type="submit" 
-            class="btn btn-primary" value="Ajouter" >
+                <input type="text" placeholder="Fichier" class="box" id="fichier" name="fichier">
+                            
+            <input type="Enregistrer" value="book now" class="btn">
                                     </div>     
                                 </form>
                             </div>
@@ -76,37 +49,12 @@
                     </div>
                 </div>
             </div>
-              <div class="row">
-    {% if ajouInfo %}
-        <div class="card" style="width: 18rem;">
-        {% for key, value in ajouInfo.items %} 
-          <div class="card-body">
-            <h5 class="card-title">
-                <span class="info"> Your {{key}}</span> 
-                : {{value}}
-            </h5>
-          </div>
-        {% endfor %}
-       </div> 
-    {% endif %} 
-    </div>
+   
         </section>
-        <!-- end contact -->
+       
 
-
-
-
-        <!-- end footer -->
-        
-        <script src="{% static 'js/jquery.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'js/wow.min.js' %}"></script>
-        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
-        <script src="{% static 'js/custom.js' %}"></script>
-
+<script src="{% static 'js/script.js' %}"></script>
 
         {% endblock %}
     </body>
-</html>
-</body>
 </html>
