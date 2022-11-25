@@ -229,9 +229,15 @@ def Carnet(request):
 
 
 
-def sante(request): 
+def sante(request):
+    proprietaire = Carnet_user.objects.select_related("User").all().filter(id=id)
 
-    donne=Carnet_user.objects.all()
+    context = {
+        'user' : proprietaire
+        } 
+
+    return render(request, 'carnet.html', context)
+
 
 
 

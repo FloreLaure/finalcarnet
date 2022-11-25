@@ -81,14 +81,10 @@ class Carnet_user (models.Model):
     Secteur_ou_village = models.CharField(max_length=30, null=True)
     sexe = models.CharField(max_length=6,choices=choix,default=Masculin, null=True)
     photo = models.ImageField(upload_to='upload/')
-   
+    proprietaire = models.ForeignKey(User, on_delete=models.CASCADE, db_column="password1", blank=True )
 
     def __str__(self):
         return f"{self.Date_de_naissance.strftime('%d-%m-%Y')}"
   
        
-       
-    
-
-
     
