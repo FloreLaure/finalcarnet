@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
 from urllib import request, response
 from django.http import HttpResponse, HttpResponseRedirect   # pass view information into the browser
-from carnet.models import User, familiaux, vaccinal, autre, Carnet_user,UserProfile # import the models from polls/models.py
+from carnet.models import User, familiaux,UserProfil, vaccinal, autre, carnetUser # import the models from polls/models.py
 from django.contrib import messages
 # from .forms import CompteForm
-from carnet.forms import CompteForm,CarnetForm,loginForm, ajoutAutreForm, ajoutFamiliauxForm, ajoutVaccinalForm,LoginUserView,UserProfileForm,UserForm # import the models from polls/models.py
+from . import forms
+from carnet.forms import CompteForm,loginForm, ajoutAutreForm, ajoutFamiliauxForm, ajoutVaccinalForm,LoginUserView,carnetUserForm,UserForm, UserProfileForm# import the models from polls/models.py
 
 from django.contrib.auth import authenticate,logout,login
 
@@ -15,6 +16,9 @@ from django.conf import settings
 
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+
+from django.contrib.auth.hashers import make_password
+
 
 
 
@@ -37,7 +41,6 @@ def vaccinal(request):
 
     context = {
         'page_title' : 'vaccin',
-        'vaccin' : vaccin
     }
     return render(request, 'vaccinal.html', context)
 
@@ -49,7 +52,6 @@ def autre(request):
 
     context = {
         'page_title' : "Sante",
-        'autre' : autr
     }
     return render(request, 'autre.html', context)    
 
@@ -61,7 +63,6 @@ def familiaux(request):
 
     context = {
         'page_title' : "Sante",
-        'familiaux' : famille,    
     }
 
     return render(request, 'familiaux.html', context)    
@@ -85,7 +86,7 @@ def ajoufamiliaux(request):
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
 
-        donnee = Carnet_user.objects.create(date=date, tare=tare, Prescription_Observations=Prescription_Observations,
+        donnee = User.objects.create(date=date, tare=tare, Prescription_Observations=Prescription_Observations,
         Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
 
 
@@ -184,26 +185,43 @@ def update(request, id):
 
 
 def Compte(request):
-    form = CompteForm()
-    if request.method == "POST":
-        username = request.POST.get('username')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
+    form = forms.CompteForm()
+    if request.method=='POST':
+        form = forms.CompteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect ('login')
+    return render(request,'compte.html', {"form":form})
 
 
-        donnee = User.objects.create(username=username, password1=password1, password2=password2)
 
 
-        donnee.save()        
-        return redirect('login')
-    else:
-        return render(request, 'compte.html', {"form":form})
+
+    # form = forms.CreateUser()
+    # if request.method == "POST":
+    #     username = request.POST.get('username')
+    #     password1 = request.POST.get('password1')
+
+    #     if User.objects.filter(username = username).exists():
+    #         return render(request, 'compte.html', {"form":form})
+    #     elif User.objects.filter(user_ptr = password1).exists():
+    #         return render(request, 'compte.html', {"form":form})
+      
+    #     else:
+    #         donnee = User.objects.create(username=username, password1=password1)
+    #         donnee.password1 = make_password(password1)
+
+    #         donnee.save() 
+
+    #     return render(request, 'obtien_carnet.html', {"form":form})
+    # else:
+    #     return render(request, 'compte.html', {"form":form})
        
 
 
 
 def Carnet(request):
-    form = CarnetForm()
+    form = carnetUserForm()
     if request.method == "POST":
         Nom = request.POST.get('Nom')
         Prenom = request.POST.get('Prenom')
@@ -222,18 +240,18 @@ def Carnet(request):
         donnee.save()
 
 
-        return render(request, 'carnet.html', {'form':form})
+        return redirect('sante')
 
     else:
-        return render(request, 'obtien_carnet.html', {'form':form})
+       return render(request, 'obtien_carnet.html', {'form':form})
 
 
 
 def sante(request):
-    proprietaire = Carnet_user.objects.select_related("User").all().filter(id=id)
+    proprietaires = User.objects.all()
 
     context = {
-        'user' : proprietaire
+        'proprietaire' : proprietaires
         } 
 
     return render(request, 'carnet.html', context)
@@ -243,56 +261,69 @@ def sante(request):
 
 
 
+    # if request.method == 'POST':
+    #     form = UserForm(request.POST)
+    #     form_profile = CompteForm(request.POST)
+      
+    #     print("data", form.data)
+
+    #     if form.is_valid() and form_profile.is_valid():
+    #         user = form.save()
+    #         profile = form_profile.save(commit=False)
+    #         profile.user = user # the user has to be saved before the profile
+    #         form_profile.save()
+            
+    #         return render(request, 'index.html', context)
+    #     else:
+    #         print("---ERRORS---", form.errors, form_profile.errors)
+    #         context['forms'] = [form, form_profile]
+    #         return render(request, 'compte.html', context)
+
+    # else:
+    #          # GET, generate blank form
+    #     context['forms'] = [UserForm(),CompteForm()]
+    #     return render(request, 'compte.html', context)
 
 
 
 def LoginView(request):
-    
     if request.method == 'POST':
-        form = UserForm(request.POST)
-        form_profile = CompteForm(request.POST)
-      
-        print("data", form.data)
 
-        if form.is_valid() and form_profile.is_valid():
-            user = form.save()
-            profile = form_profile.save(commit=False)
-            profile.user = user # the user has to be saved before the profile
-            form_profile.save()
-            num=num+1
-            if num==1:
-                return redirect('login')
-            else:   
-                return render(request, 'carnet.html', context)
+        username = request.POST.get['username']
+        password = request.POST.get['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('Carnet')
         else:
-            print("---ERRORS---", form.errors, form_profile.errors)
-            context['forms'] = [form, form_profile]
-            return render(request, 'compte.html', context)
-
+            return redirect('login')
     else:
-             # GET, generate blank form
-        context['forms'] = [UserForm(),CompteForm()]
-        return render(request, 'compte.html', context)
+        return redirect('login')
 
+    
+    
+   
 
        
 
 
 
 def LogoutView(request):
-    username = request.POST.get['username']
-    password = request.POST.get['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
+    if request.method == 'POST':
+        username = request.POST.get['username']
+        password = request.POST.get['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return render(request, 'index.html', context)
+
+            ...
+        else:
+            print("---ERRORS---", form.errors, form_profile.errors)
+            ...
+    else:
         return render(request, 'index.html', context)
 
-        # Redirect to a success page.
-        ...
-    else:
-        print("---ERRORS---", form.errors, form_profile.errors)
-        # Return an 'invalid login' error message.
-        ...
 
 
 
@@ -305,7 +336,7 @@ def LogoutView(request):
 
 #     if request.method == 'POST':
 #         form = UserForm(request.POST)
-#         form_profile = UserProfileForm(request.POST)
+#         form_profile = carnetUserForm(request.POST)
 
 #         print("data", form.data)
 
@@ -323,7 +354,7 @@ def LogoutView(request):
 
 #     else:
 #         # GET, generate blank form
-#         context['forms'] = [UserForm(),UserProfileForm()]
+#         context['forms'] = [UserForm(),carnetUserForm()]
 #     return render(request, 'compte.html', context)
 
 

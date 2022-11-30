@@ -12,59 +12,37 @@
 
 
 {% block content %}
+<section class="book" id="book">
 
-<section id="contact">
-            <div class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <h2 class="text-uppercase">Connectez-vous à votre compte</h2>
-                            <p> </p><br>
-                            <address>
-                                
-                               
-                            </address>
-                        </div>
-         <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                            <div class="contact-form">
-                                <form action="" method="POST" enctype="multipart/form-data">
+    <h1 class="heading"> <span>book</span> now </h1>    
+
+    <div class="row">
+
+        <div class="image">
+
+             <h2 class="text-uppercase" style="font-size:45px ;">
+
+             Connecter vous à votre compte</h2><br><br>
+                            
 
 
-                                    <div class="col-md-12">
-                                     {% csrf_token %}
+                                        </div>
+                
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Nom d'utilisateur" name="username" class="box">
+            <input type="password" placeholder="Mot de passe" name="password" class="box">
 
-                                    {{ form|crispy }}
-                                </div>
+            <input type="submit" value="Se connecter" class="btn">
 
+        </form>
 
-                                  
-
-                                  
-                                    <div class="col-md-4">
-                                         <input  type="submit" 
-            class="btn btn-primary" value="Se connecter" >
-                                    </div>     
-                                </form>
-                            </div>
-                        </div>
-
-                         </div>
-                </div>
-            </div>
-              
     </div>
-        </section>
-        <!-- end contact -->
 
+</section>
 
+<script src="{% static 'js/script.js' %}"></script>
 
-
-        
-        <script src="{% static 'js/jquery.js' %}"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'js/wow.min.js' %}"></script>
-        <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
-        <script src="{% static 'js/custom.js' %}"></script>
 
 
 {% endblock %}

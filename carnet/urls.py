@@ -1,4 +1,4 @@
-from django.urls import path#path function
+from django.urls import path #path function
 from . import views # . is shorthand for the current directory
 from django.contrib.auth.views import LoginView
 from django.conf import settings
@@ -8,7 +8,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.index, name='index'),
     path('sante/', views.sante, name='sante'),
-    path('carnet/', views.Carnet, name='carnet'),
+    path('Carnet/', views.Carnet, name='Carnet'),
+
     path('vaccinal/', views.vaccinal, name='vaccinal'),
     path('autre/', views.autre, name='autre'),
     path('familiaux/', views.familiaux, name='familiaux'),

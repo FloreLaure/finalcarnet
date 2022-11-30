@@ -1,5 +1,6 @@
 
-from django.db import models #import the models package. This line is already existing as soon as we use 'startapp'
+from django.db import models
+from django.contrib.auth.hashers import make_password
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
 from datetime import date
@@ -18,16 +19,14 @@ from django.utils.timezone import get_fixed_timezone
 
 from django.contrib.auth.models import User, AbstractUser,AbstractBaseUser
 
-
-class UserProfile(models.Model):
-    pass
-   
+from django.conf import settings
 
 
 class User (User):
-    pass
+   pass
 
 
+    
 class familiaux (models.Model):
     date = models.DateField(default=datetime.now)
     Tare = models.CharField(max_length=30)
@@ -67,24 +66,48 @@ class autre (models.Model):
 
 
 
+        # proprietaire = models.ForeignKey(User, on_delete=models.CASCADE, db_column="password1", blank=True )
 
-class Carnet_user (models.Model):
 
+
+class UserProfil(models.Model):
     Masculin='M'
     Feminin='F'
     choix = ((Masculin, 'Masculin'),(Feminin, 'Feminin'),)
 
-    Nom = models.CharField(max_length=30)
+    Nom = models.CharField(max_length=30,null=True)
     Prenom = models.CharField(max_length=40, null=True)
     Profession = models.CharField(max_length=30, null=True)
     Date_de_naissance = models.DateField(default=datetime.now)
     Secteur_ou_village = models.CharField(max_length=30, null=True)
     sexe = models.CharField(max_length=6,choices=choix,default=Masculin, null=True)
     photo = models.ImageField(upload_to='upload/')
-    proprietaire = models.ForeignKey(User, on_delete=models.CASCADE, db_column="password1", blank=True )
+    person = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
 
     def __str__(self):
         return f"{self.Date_de_naissance.strftime('%d-%m-%Y')}"
-  
-       
-    
+
+
+class carnetUser(models.Model):
+    UserProfil = models.OneToOneField(
+        UserProfil,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    familiaux = models.OneToOneField(familiaux,
+        on_delete=models.CASCADE,
+    )
+    vaccinal = models.OneToOneField(
+        vaccinal,
+        on_delete=models.CASCADE,
+    )
+    autre = models.OneToOneField(
+        autre,
+        on_delete=models.CASCADE,
+    )
+   
+

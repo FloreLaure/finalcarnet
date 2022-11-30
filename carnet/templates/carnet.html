@@ -23,8 +23,8 @@
                         <img src="{% static 'image/pic-2.png' %}">
 
             <h3>john deo</h3>
-        
-						<p style="font-size:25px ;">Nom: {{user.Nom}}<br>
+                            
+						<p style="font-size:25px ;">Nom: {{request.user}}<br>
 							Prénom: {{user.Prenom}}<br>
 							Sexe: {{user.sexe}}<br>
 							Date de naissance: {{user.Date_de_naissance}}<br>

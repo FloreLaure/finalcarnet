@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, TextInput
-from carnet.models import User,UserProfile,Carnet_user, familiaux, vaccinal, autre # import the models from polls/models.py
+from carnet.models import User,carnetUser, familiaux,UserProfil, vaccinal, autre # import the models from polls/models.py
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Form
@@ -30,53 +30,50 @@ def validate_prenom(prenom):
                          # "@/./+/-/_ characters.
 
 class CompteForm(UserCreationForm):
-    username = forms.RegexField(regex=r"^[\w.@+-]+$",
-        label=("Nom d'utilisateur"), max_length=20,
-        help_text=("Required. 20 "),
+    username = forms.CharField(
+        label="",
+        max_length=20,
         error_messages={
             'invalid': ("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")},
-        widget=forms.TextInput(attrs={'class': 'form-control',
-                                'required': 'true',                         
-    })
-)
+                    "@/./+/-/_ characters.")},
+        widget=forms.TextInput(attrs={'class': 'box',
+                        'placeholder': 'Nom d\'utilisateur',
+
+                                    'required': 'true',                         
+        })
+)   
     password1 = forms.CharField(
-        label=("Mot de passe"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control',
+        label=(""),
+        widget=forms.PasswordInput(attrs={'class': 'box',
+                        'placeholder': 'Mot de passe',
+
+                                          'required': 'true',
+
+        })
+
+    )
+
+    password2 = forms.CharField(
+        label="",
+        widget=forms.PasswordInput(attrs={'class': 'box',
+            'placeholder': 'Confirmer le mot de passe',
                                           'required': 'true',
 
         })
     )
-    password2 = forms.CharField(
-        label=("Confirmer le mot de passe"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control',
-                                          'type': 'password',
-                                          'required': 'true',
-        }),
-        help_text=("Entrer le même mot de passe")
-    )
-
-    
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        # exclude = ['username']
-        #model = User
-        fields = ['username','password1','password2']
+        # fields = '__all__'
 
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'password1': forms.TextInput(attrs={'class': 'form-control'}),   # Remove This Line
-            'password2': forms.TextInput(attrs={'class': 'form-control'}),  # Remove This Line
-        }
+        # widgets = {
+        #     'username': forms.TextInput(attrs={'class': 'box'}),
+        #     'password1': forms.TextInput(attrs={'class': 'box'}), 
+        #     'password2': forms.TextInput(attrs={'class': 'box'}),   # Remove This Line
+        # }
 
 
    
 
-class CarnetForm(forms.Form):
-
-    class Meta:
-        model = Carnet_user
-        fields = '__all__' 
     
 
 
@@ -123,24 +120,31 @@ class LoginUserView(LoginView):
 
 
 
-class loginForm(forms.Form):
+class loginForm(forms.ModelForm):
     username = forms.CharField(
         label=("Nom d'utilisateur"), max_length=20,
         error_messages={
             'invalid': ("This value may contain only letters, numbers and "
                     "@/./+/-/_ characters.")},
-        widget=forms.TextInput(attrs={'class': 'form-control',
+        widget=forms.TextInput(attrs={'class': 'box',
                                     'required': 'true',                         
         })
 )   
     password = forms.CharField(
         label=("Mot de passe"),
-        widget=forms.PasswordInput(attrs={'class': 'form-control',
+        widget=forms.PasswordInput(attrs={'class': 'box',
                                           'required': 'true',
 
         })
     )
 
+
+
+
+class carnetUserForm(forms.ModelForm):
+    class Meta:
+        model = UserProfil
+        fields='__all__'
 
 
 class UserForm(forms.ModelForm):
@@ -150,7 +154,7 @@ class UserForm(forms.ModelForm):
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = UserProfile
+        model = UserProfil
         exclude = ['user']
         widgets = {
             'password': forms.Textarea(attrs={'class': 'password'}),
