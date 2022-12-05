@@ -22,10 +22,10 @@
         <div class="box">
                         <img src="{% static 'image/pic-2.png' %}">
 
-            <h3>john deo</h3>
+            <h3>{{request.user}}</h3>
                             
-						<p style="font-size:25px ;">Nom: {{request.user}}<br>
-							Prénom: {{user.Prenom}}<br>
+						<p style="font-size:25px ;">Nom: {{request.Nom}}<br>
+							Prénom: {{request.UserProfil}}<br>
 							Sexe: {{user.sexe}}<br>
 							Date de naissance: {{user.Date_de_naissance}}<br>
 							Profesion:{{user.Profession}}<br>
@@ -53,13 +53,10 @@
 
             </div>
             <div class="content">
-                <div class="icon">
-                    <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                    <a href="#"> <i class="fas fa-user"></i> by admin </a>
-                </div>
+               
                 <h3>Antécédants Familiaux</h3>
                 <p> Ici vous verrez les maladies héréditaires de {{user.Nom}} {{user.Prenom}}</p>
-                <a href="#" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                <a href="{% url 'familiaux' %}" class="btn"> Voir plus <span class="fas fa-chevron-right"></span> </a>
             </div>
         </div>
 
@@ -71,15 +68,12 @@
 
             </div>
             <div class="content">
-                <div class="icon">
-                    <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                    <a href="#"> <i class="fas fa-user"></i> by admin </a>
-                </div>
+                
                 <h3>Antécédants vaccinals</h3>
                 <p>
 							Les détails sur les doses de vaccins préalablement fait par {{user.Nom}} {{user.Prenom}}.  
 						</p>
-                <a href="{% url 'vaccinal' %}" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                <a href="{% url 'vaccinal' %}" class="btn">Voir plus  <span class="fas fa-chevron-right"></span> </a>
             </div>
         </div>
 
@@ -93,21 +87,17 @@
 
             </div>
             <div class="content">
-                <div class="icon">
-                    <a href="#"> <i class="fas fa-calendar"></i> 1st may, 2021 </a>
-                    <a href="#"> <i class="fas fa-user"></i> by admin </a>
-                </div>
+               
                 <h3>Autres</h3>
                 <p>
 								Les détails sur les différentes services sanitaires(consultation,soins,prescription,...) reçut par {{user.Nom}} {{user.Prenom}}
 							</p>
-                <a href="{% url 'autre' %}" class="btn"> learn more <span class="fas fa-chevron-right"></span> </a>
+                <a href="{% url 'autre' %}" class="btn"> Voir plus <span class="fas fa-chevron-right"></span> </a>
             </div>
         </div>
 
 
 		</section>
-		<!-- end pricing -->
 
 
 

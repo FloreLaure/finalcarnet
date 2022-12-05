@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, TextInput
-from carnet.models import User,carnetUser, familiaux,UserProfil, vaccinal, autre # import the models from polls/models.py
+from carnet.models import User,carnetUser, familiaux,UserProfil, vaccinal, ajouAutre # import the models from polls/models.py
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import Form
@@ -83,7 +83,7 @@ class CompteForm(UserCreationForm):
 class ajoutAutreForm(forms.Form):
    
     class Meta: 
-        model = autre
+        model = ajouAutre
         fields = "__all__"
 
 
@@ -145,6 +145,11 @@ class carnetUserForm(forms.ModelForm):
     class Meta:
         model = UserProfil
         fields='__all__'
+
+
+
+
+
 
 
 class UserForm(forms.ModelForm):

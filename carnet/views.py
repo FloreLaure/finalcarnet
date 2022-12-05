@@ -1,23 +1,22 @@
 from django.shortcuts import render,redirect
 from urllib import request, response
 from django.http import HttpResponse, HttpResponseRedirect   # pass view information into the browser
-from carnet.models import User, familiaux,UserProfil, vaccinal, autre, carnetUser # import the models from polls/models.py
+from carnet.models import User, familiaux,UserProfil, vaccinal, ajouAutre, carnetUser # import the models from polls/models.py
 from django.contrib import messages
-# from .forms import CompteForm
 from . import forms
 from carnet.forms import CompteForm,loginForm, ajoutAutreForm, ajoutFamiliauxForm, ajoutVaccinalForm,LoginUserView,carnetUserForm,UserForm, UserProfileForm# import the models from polls/models.py
 
 from django.contrib.auth import authenticate,logout,login
 
 from django.contrib.auth.forms import UserCreationForm
-
-# authentication/views.py
 from django.conf import settings
 
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 
 from django.contrib.auth.hashers import make_password
+
+import re
 
 
 
@@ -37,35 +36,25 @@ def index(request):
 # la vue sante pour la page de connexion, là ou on accède au carnet
 
 
-def vaccinal(request):
-
-    context = {
-        'page_title' : 'vaccin',
-    }
-    return render(request, 'vaccinal.html', context)
+def Voirvaccinal(request):
+    vaccinale = vaccinal.objects.all()  
+    return render(request,"vaccinal.html",{'vaccinale':vaccinale})  
 
 
 
 # la vue autre prsente les autres antécedants ( consultation et autre)
 
-def autre(request):
-
-    context = {
-        'page_title' : "Sante",
-    }
-    return render(request, 'autre.html', context)    
+def Voirautre(request):
+    ajouAutr = ajouAutre.objects.all()  
+    return render(request,"autre.html",{'ajouAutr':ajouAutr})  
 
 
 
 # la vue familiaux présente les antécédents familiaux du User
 
-def familiaux(request):
-
-    context = {
-        'page_title' : "Sante",
-    }
-
-    return render(request, 'familiaux.html', context)    
+def Voirfamiliaux(request):
+    familiau = familiaux.objects.all()  
+    return render(request,"familiaux.html",{'familiau':familiau})  
 
 ## fin antécedant
 
@@ -76,25 +65,19 @@ def familiaux(request):
 
 ## la vue ajoufamiliaux permet au personnel soignant d'ajouter de nouvelles information sur les antécédent familiaux du User
 
-def ajoufamiliaux(request):
+def antecedantFamiliaux(request):
     form = ajoutFamiliauxForm()
     if request.method == "POST":
         date = request.POST.get('date')
-        tare = request.POST.get('tare')
+        Tare = request.POST.get('Tare')
         Prescription_Observations = request.POST.get('Prescription_Observations')
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
-
-        donnee = User.objects.create(date=date, tare=tare, Prescription_Observations=Prescription_Observations,
+        donnee = familiaux.objects.create(date=date, Tare=Tare, Prescription_Observations=Prescription_Observations,
         Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
-
-
         donnee.save()
-
-
-        return render(request, 'familiaux.html', {'form':form})
-
+        return redirect('familiaux')
     else:
         return render(request, 'ajoufamiliaux.html', {'form':form})
 
@@ -104,25 +87,19 @@ def ajoufamiliaux(request):
 ## la vue ajouvaccin permet au personnel soignant d'ajouter de nouvelles information sur les antécédent vaccinal du User (nouvelle vaccinations)
 
 
-def ajouvaccin(request):
+def antecedantVaccin(request):
     form=ajoutVaccinalForm()
     if request.method == "POST":
         date = request.POST.get('date')
-        dose = request.POST.get('dose')
+        Vaccin = request.POST.get('Vaccin')
         Prescription_Observations = request.POST.get('Prescription_Observations')
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
-
-        donnee = Carnet_user.objects.create(date=date, dose=dose, Prescription_Observations=Prescription_Observations,
+        donnee = vaccinal.objects.create(date=date, Vaccin=Vaccin, Prescription_Observations=Prescription_Observations,
         Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
-
-
         donnee.save()
-
-
-        return render(request, 'vaccinal.html', {'form':form})
-
+        return redirect('vaccinal')
     else:
         return render(request, 'ajouvaccin.html', {'form':form})
 
@@ -134,7 +111,8 @@ def ajouvaccin(request):
 
 ## la vue ajouAutre permet au personnel soignant d'ajouter de nouvelles information sur la santé du User(nouvelle consultation et autre)
 
-def ajouAutre(request):
+def ajouAntecedant(request):
+
     form = ajoutAutreForm()
     if request.method == "POST":
         date = request.POST.get('date')
@@ -143,16 +121,10 @@ def ajouAutre(request):
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
-
-        donnee = Carnet_user.objects.create(date=date, Episode_essentiels_de_maladie=Episode_essentiels_de_maladie, Prescription_Observations=Prescription_Observations,
+        donnee = ajouAutre.objects.create(date=date, Episode_essentiels_de_maladie=Episode_essentiels_de_maladie, Prescription_Observations=Prescription_Observations,
         Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
-
-
         donnee.save()
-
-
-        return render(request, 'autre.html', {'form':form})
-
+        return redirect('autre')
     else:
         return render(request, 'ajoutAutre.html', {'form':form})
 
@@ -195,32 +167,19 @@ def Compte(request):
 
 
 
-
-
-    # form = forms.CreateUser()
-    # if request.method == "POST":
-    #     username = request.POST.get('username')
-    #     password1 = request.POST.get('password1')
-
-    #     if User.objects.filter(username = username).exists():
-    #         return render(request, 'compte.html', {"form":form})
-    #     elif User.objects.filter(user_ptr = password1).exists():
-    #         return render(request, 'compte.html', {"form":form})
-      
-    #     else:
-    #         donnee = User.objects.create(username=username, password1=password1)
-    #         donnee.password1 = make_password(password1)
-
-    #         donnee.save() 
-
-    #     return render(request, 'obtien_carnet.html', {"form":form})
-    # else:
-    #     return render(request, 'compte.html', {"form":form})
-       
-
-
-
 def Carnet(request):
+    carnet=carnetUser.objects.all()
+    context = {
+        'page_title' : "Sante",
+    }
+
+    return render(request, 'carnet.html', context)    
+
+
+
+def sante(request):
+    proprietaires = User.objects.all()
+
     form = carnetUserForm()
     if request.method == "POST":
         Nom = request.POST.get('Nom')
@@ -231,58 +190,15 @@ def Carnet(request):
         sexe = request.POST.get('sexe')
         photo = request.POST.get('photo')
         
-
-
-        donnee = Carnet_user.objects.create(Nom=Nom, Prenom=Prenom, Date_de_naissance=Date_de_naissance,
+        donnee = UserProfil.objects.create(Nom=Nom, Prenom=Prenom, Date_de_naissance=Date_de_naissance,
         Profession=Profession, Secteur_ou_village=Secteur_ou_village, sexe=sexe, photo=photo)
-
 
         donnee.save()
 
-
-        return redirect('sante')
+        return redirect ('Carnet')
 
     else:
        return render(request, 'obtien_carnet.html', {'form':form})
-
-
-
-def sante(request):
-    proprietaires = User.objects.all()
-
-    context = {
-        'proprietaire' : proprietaires
-        } 
-
-    return render(request, 'carnet.html', context)
-
-
-
-
-
-
-    # if request.method == 'POST':
-    #     form = UserForm(request.POST)
-    #     form_profile = CompteForm(request.POST)
-      
-    #     print("data", form.data)
-
-    #     if form.is_valid() and form_profile.is_valid():
-    #         user = form.save()
-    #         profile = form_profile.save(commit=False)
-    #         profile.user = user # the user has to be saved before the profile
-    #         form_profile.save()
-            
-    #         return render(request, 'index.html', context)
-    #     else:
-    #         print("---ERRORS---", form.errors, form_profile.errors)
-    #         context['forms'] = [form, form_profile]
-    #         return render(request, 'compte.html', context)
-
-    # else:
-    #          # GET, generate blank form
-    #     context['forms'] = [UserForm(),CompteForm()]
-    #     return render(request, 'compte.html', context)
 
 
 
@@ -299,12 +215,6 @@ def LoginView(request):
             return redirect('login')
     else:
         return redirect('login')
-
-    
-    
-   
-
-       
 
 
 
@@ -323,53 +233,4 @@ def LogoutView(request):
             ...
     else:
         return render(request, 'index.html', context)
-
-
-
-
-
-
-# def inde(request):
-#     context = {
-#         'page_title' : "Homepage",
-#     }
-
-#     if request.method == 'POST':
-#         form = UserForm(request.POST)
-#         form_profile = carnetUserForm(request.POST)
-
-#         print("data", form.data)
-
-#         if form.is_valid() and form_profile.is_valid():
-#             user = form.save()
-#             profile = form_profile.save(commit=False)
-#             profile.user = user # the user has to be saved before the profile
-#             form_profile.save()
-
-#             return render(request, 'sante.html', context)
-#         else:
-#             print("---ERRORS---", form.errors, form_profile.errors)
-#             context['forms'] = [form, form_profile]
-#             return render(request, 'compte.html', context)
-
-#     else:
-#         # GET, generate blank form
-#         context['forms'] = [UserForm(),carnetUserForm()]
-#     return render(request, 'compte.html', context)
-
-
-# def Compte(request):
-#     if request.method == "POST":
-#         form = CompteForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             message.success(request, "Compte was add")
-#             return HttpResponseRedirect("/")
-#         else:
-#             return render(request, 'compte.html', {"form":form})
-       
-#     else:
-#         form = CompteForm()
-#         return render(request, 'compte.html', {"form":form})
-
 
