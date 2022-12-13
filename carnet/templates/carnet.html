@@ -20,20 +20,22 @@
     <div class="box-container">
 
         <div class="box">
-                        <img src="{% static 'image/pic-2.png' %}">
+                        <img src="{{ carnet.photo.url}}">
 
-            <h3>{{request.user}}</h3>
-                            
-						<p style="font-size:25px ;">Nom: {{request.Nom}}<br>
-							Prénom: {{request.UserProfil}}<br>
-							Sexe: {{user.sexe}}<br>
-							Date de naissance: {{user.Date_de_naissance}}<br>
-							Profesion:{{user.Profession}}<br>
-							Secteur ou village: {{user.Secteur_ou_village}}<br>
+                        
+            <h3>Mon carnet personnel</h3><br><br><br><br>
+
+                       <!-- {% if carnet %} -->
+						<p style="font-size:25px ;">Nom: {{carnet.Nom}}<br>
+							Prénom: {{carnet.Prenom}}<br>
+                            Genre: {{carnet.sexe}}<br>
+							Date de naissance: {{carnet.Date_de_naissance}}<br>
+							Profesion:{{carnet.Profession}}<br>
+							Secteur ou village: {{carnet.Secteur_ou_village}}<br>
 						</p>
-						 
-
-						
+                       
+                      
+						<!-- {% endif %} -->
 					</div>
 				</div>
 			</div>
@@ -55,7 +57,7 @@
             <div class="content">
                
                 <h3>Antécédants Familiaux</h3>
-                <p> Ici vous verrez les maladies héréditaires de {{user.Nom}} {{user.Prenom}}</p>
+                <p> Ici vous verrez les maladies héréditaires de {{carnet.Nom}} {{carnet.Prenom}}</p>
                 <a href="{% url 'familiaux' %}" class="btn"> Voir plus <span class="fas fa-chevron-right"></span> </a>
             </div>
         </div>
@@ -71,7 +73,7 @@
                 
                 <h3>Antécédants vaccinals</h3>
                 <p>
-							Les détails sur les doses de vaccins préalablement fait par {{user.Nom}} {{user.Prenom}}.  
+							Les détails sur les doses de vaccins préalablement fait par {{carnet.Nom}} {{carnet.Prenom}}.  
 						</p>
                 <a href="{% url 'vaccinal' %}" class="btn">Voir plus  <span class="fas fa-chevron-right"></span> </a>
             </div>
@@ -90,7 +92,7 @@
                
                 <h3>Autres</h3>
                 <p>
-								Les détails sur les différentes services sanitaires(consultation,soins,prescription,...) reçut par {{user.Nom}} {{user.Prenom}}
+								Les détails sur les différentes services sanitaires(consultation,soins,prescription,...) reçut par {{carnet.Nom}} {{carnet.Prenom}}
 							</p>
                 <a href="{% url 'autre' %}" class="btn"> Voir plus <span class="fas fa-chevron-right"></span> </a>
             </div>

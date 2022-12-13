@@ -28,14 +28,16 @@
     </tr>
   </thead>
   <tbody>
+    {% for family in familiau %}
     <tr>
-      <th scope="row">{{familiaux.date}}</th>
-      <td>{{familiaux.Tare}}</td>
-      <td>{{familiaux.Prescription_Observations}}</td>
-      <td>{{familiaux.Prescripteur}}</td>
-      <td>{{familiaux.lieu}}</td>
-      <td>{{familiaux.fichier}}</td>
+      <th scope="row">{{family.date}}</th>
+      <td>{{family.Tare}}</td>
+      <td>{{family.Prescription_Observations}}</td>
+      <td>{{family.Prescripteur}}</td>
+      <td>{{family.lieu}}</td>
+      <td>{{family.fichier}}</td>
     </tr>
+    {% endfor %}
   </tbody>
 </table><br><br>
 

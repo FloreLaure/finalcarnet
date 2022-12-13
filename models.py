@@ -16,6 +16,48 @@ from django.conf import settings
 
 
 
+
+
+    
+class familiaux (models.Model):
+    date = models.DateField(default=datetime.now)
+    Tare = models.CharField(max_length=30)
+    Prescription_Observations = models.TextField()
+    Prescripteur = models.CharField(max_length=30)
+    lieu = models.CharField(max_length=30, default='hopital')
+    fichier = models.FileField()
+
+    def __str__(self):
+        return f"{self.date.strftime('%d-%m-%Y')}"
+
+
+
+
+class vaccinal (models.Model):
+    date = models.DateField(default=datetime.now)   
+    Vaccin = models.CharField(max_length=30)
+    Prescription_Observations = models.TextField()
+    Prescripteur = models.CharField(max_length=30)
+    lieu = models.CharField(max_length=30, default='hopital')
+    fichier = models.FileField()
+
+    def __str__(self):
+        return f"{self.date.strftime('%d-%m-%Y')}"
+
+
+class ajouAutre (models.Model):
+    date = models.DateField(default=datetime.now)   
+    Episode_essentiels_de_maladie = models.TextField()
+    Prescription_Observations = models.TextField()
+    Prescripteur = models.CharField(max_length=30)
+    lieu = models.CharField(max_length=30, default='hopital')
+    fichier = models.FileField()
+
+    def __str__(self):
+        return f"{self.date.strftime('%d-%m-%Y')}"
+
+
+
 class UserProfil(models.Model):
     Masculin='M'
     Feminin='F'
@@ -35,53 +77,8 @@ class UserProfil(models.Model):
 
 
 
-    
-class familiaux (models.Model):
-    date = models.DateField(default=datetime.now)
-    famille = models.ForeignKey(User, on_delete=models.CASCADE)
-    Tare = models.CharField(max_length=30)
-    Prescription_Observations = models.TextField()
-    Prescripteur = models.CharField(max_length=30)
-    lieu = models.CharField(max_length=30, default='hopital')
-    fichier = models.FileField(upload_to='upload/')
-
-    def __str__(self):
-        return f"{self.date.strftime('%d-%m-%Y')}"
-
-
-
-
-class vaccinal (models.Model):
-    date = models.DateField(default=datetime.now)
-    vaccine = models.ForeignKey(User, on_delete=models.CASCADE)   
-    Vaccin = models.CharField(max_length=30)
-    Prescription_Observations = models.TextField()
-    Prescripteur = models.CharField(max_length=30)
-    lieu = models.CharField(max_length=30, default='hopital')
-    fichier = models.FileField(upload_to='upload/')
-
-    def __str__(self):
-        return f"{self.date.strftime('%d-%m-%Y')}"
-
-
-class ajouAutre (models.Model):
-    date = models.DateField(default=datetime.now) 
-    autr = models.ForeignKey(User, on_delete=models.CASCADE)  
-    Episode_essentiels_de_maladie = models.TextField()
-    Prescription_Observations = models.TextField()
-    Prescripteur = models.CharField(max_length=30)
-    lieu = models.CharField(max_length=30, default='hopital')
-    fichier = models.FileField(upload_to='upload/')
-
-    def __str__(self):
-        return f"{self.date.strftime('%d-%m-%Y')}"
-
-
-
-
-
 class carnetUser(models.Model):
-    UserProfil = models.ForeignKey(UserProfil, on_delete=models.CASCADE)
+    UserProfil = models.OneToOneField(UserProfil, on_delete=models.CASCADE, primary_key=True)
     familiaux = models.OneToOneField(familiaux, on_delete=models.CASCADE)
     vaccinal = models.OneToOneField(vaccinal, on_delete=models.CASCADE)
     autre = models.OneToOneField(ajouAutre, on_delete=models.CASCADE)

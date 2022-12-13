@@ -24,13 +24,15 @@
     </tr>
   </thead>
   <tbody>
+    {% if vaccinale %}
     <tr>
-      <th scope="row">{{vaccin.date}}</th>
-      <td>{{vaccin.Vaccin}}</td>
-      <td>{{vaccin.Prescription_Observations}}</td>
-      <td>{{vaccin.Prescripteur}}</td>
-      <td>{{vaccin.lieu}}</td>
+      <th scope="row" class="box">{{vaccinale.date}}</th>
+      <td class="box">{{vaccinale.Vaccin}}</td>
+      <td>{{vaccinale.Prescription_Observations}}</td>
+      <td>{{vaccinale.Prescripteur}}</td>
+      <td>{{vaccinale.lieu}}</td>
     </tr>
+    {% endif %}
   </tbody>
 </table><br><br>
 

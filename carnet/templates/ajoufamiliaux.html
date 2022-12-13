@@ -29,6 +29,8 @@
                          
                                 <form action="" method="POST">
                                     {% csrf_token %}
+
+        <input type="texte"  id="user" value="{{request.user}}" class="box" name="user" readonly>                            
         <input type="date" placeholder="Date" class="box" id="date" name="date">
                                 
 

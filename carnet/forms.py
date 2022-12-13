@@ -80,7 +80,7 @@ class CompteForm(UserCreationForm):
 
 ## le formulaire qui permet aux personnels soignant de renseigner les consultations et autres
 
-class ajoutAutreForm(forms.Form):
+class ajoutAutreForm(forms.ModelForm):
    
     class Meta: 
         model = ajouAutre
@@ -91,7 +91,7 @@ class ajoutAutreForm(forms.Form):
 
 ## le formulaire qui permet aux personnels soignant de metre à jour les antécédants familiaux
 
-class ajoutFamiliauxForm(forms.Form):
+class ajoutFamiliauxForm(forms.ModelForm):
     class Meta():
         model = familiaux
         fields = "__all__"
@@ -100,7 +100,7 @@ class ajoutFamiliauxForm(forms.Form):
 
 
 
-class ajoutVaccinalForm(forms.Form):
+class ajoutVaccinalForm(forms.ModelForm):
 
     class Meta:
         model = vaccinal

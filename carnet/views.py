@@ -36,8 +36,10 @@ def index(request):
 # la vue sante pour la page de connexion, là ou on accède au carnet
 
 
+
+
 def Voirvaccinal(request):
-    vaccinale = vaccinal.objects.all()  
+    vaccinale = vaccinal.objects.filter(vaccine_id=request.user.pk)  
     return render(request,"vaccinal.html",{'vaccinale':vaccinale})  
 
 
@@ -45,15 +47,15 @@ def Voirvaccinal(request):
 # la vue autre prsente les autres antécedants ( consultation et autre)
 
 def Voirautre(request):
-    ajouAutr = ajouAutre.objects.all()  
-    return render(request,"autre.html",{'ajouAutr':ajouAutr})  
+    autes = ajouAutre.objects.filter(autr_id=request.user.pk)  
+    return render(request,"autre.html",{'autres':autres})  
 
 
 
 # la vue familiaux présente les antécédents familiaux du User
 
 def Voirfamiliaux(request):
-    familiau = familiaux.objects.all()  
+    familiau = familiaux.objects.filter(famille_id=request.user.pk)  
     return render(request,"familiaux.html",{'familiau':familiau})  
 
 ## fin antécedant
@@ -74,12 +76,16 @@ def antecedantFamiliaux(request):
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
+        famille=request.user
+
         donnee = familiaux.objects.create(date=date, Tare=Tare, Prescription_Observations=Prescription_Observations,
-        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
+        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier,famille=famille)
+
         donnee.save()
         return redirect('familiaux')
     else:
         return render(request, 'ajoufamiliaux.html', {'form':form})
+
 
 
 
@@ -96,8 +102,12 @@ def antecedantVaccin(request):
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
+        vaccine = request.user
+
+
         donnee = vaccinal.objects.create(date=date, Vaccin=Vaccin, Prescription_Observations=Prescription_Observations,
-        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
+        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier, vaccine=vaccine)
+
         donnee.save()
         return redirect('vaccinal')
     else:
@@ -121,8 +131,11 @@ def ajouAntecedant(request):
         Prescripteur = request.POST.get('Prescripteur')
         lieu = request.POST.get('lieu')
         fichier = request.POST.get('fichier')
+        autr=request.user
+
         donnee = ajouAutre.objects.create(date=date, Episode_essentiels_de_maladie=Episode_essentiels_de_maladie, Prescription_Observations=Prescription_Observations,
-        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier)
+        Prescripteur=Prescripteur, lieu=lieu, fichier=fichier,autr=autr)
+
         donnee.save()
         return redirect('autre')
     else:
@@ -134,9 +147,13 @@ def ajouAntecedant(request):
 def show(request):  
     autres = autre.objects.all()  
     return render(request,"carnet.html",{'autres':autres})  
+
+
 def edit(request, id):  
     autr = autre.objects.get(id=id)  
-    return render(request,'ajoutAutre.html', {'autr':autr})  
+    return render(request,'ajoutAutre.html', {'autr':autr}) 
+
+ 
 def update(request, id): 
     autr = autre.objects.get(id=id)  
     form = ajoutAutreForm(request.POST, instance = autr)  
@@ -168,18 +185,13 @@ def Compte(request):
 
 
 def Carnet(request):
-    carnet=carnetUser.objects.all()
-    context = {
-        'page_title' : "Sante",
-    }
-
+    carnet = UserProfil.objects.get(user_id=request.user.pk)
+    context = {"page_title":"Sante", "carnet":carnet}
     return render(request, 'carnet.html', context)    
 
 
 
 def sante(request):
-    proprietaires = User.objects.all()
-
     form = carnetUserForm()
     if request.method == "POST":
         Nom = request.POST.get('Nom')
@@ -189,9 +201,10 @@ def sante(request):
         Secteur_ou_village = request.POST.get('Secteur_ou_village')
         sexe = request.POST.get('sexe')
         photo = request.POST.get('photo')
+        user = request.user
         
         donnee = UserProfil.objects.create(Nom=Nom, Prenom=Prenom, Date_de_naissance=Date_de_naissance,
-        Profession=Profession, Secteur_ou_village=Secteur_ou_village, sexe=sexe, photo=photo)
+        Profession=Profession, Secteur_ou_village=Secteur_ou_village, sexe=sexe, photo=photo, user=user)
 
         donnee.save()
 
@@ -210,7 +223,7 @@ def LoginView(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('Carnet')
+            return redirect('sante')
         else:
             return redirect('login')
     else:
@@ -233,4 +246,3 @@ def LogoutView(request):
             ...
     else:
         return render(request, 'index.html', context)
-
