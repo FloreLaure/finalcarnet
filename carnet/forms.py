@@ -63,14 +63,7 @@ class CompteForm(UserCreationForm):
     )
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
-        # fields = '__all__'
-
-        # widgets = {
-        #     'username': forms.TextInput(attrs={'class': 'box'}),
-        #     'password1': forms.TextInput(attrs={'class': 'box'}), 
-        #     'password2': forms.TextInput(attrs={'class': 'box'}),   # Remove This Line
-        # }
-
+      
 
    
 
@@ -137,6 +130,26 @@ class loginForm(forms.ModelForm):
 
         })
     )
+
+
+class logoutForm(forms.ModelForm):
+    username = forms.CharField(
+        label=("Nom d'utilisateur"), max_length=20,
+        error_messages={
+            'invalid': ("This value may contain only letters, numbers and "
+                    "@/./+/-/_ characters.")},
+        widget=forms.TextInput(attrs={'class': 'box',
+                                    'required': 'true',                         
+        })
+)   
+    password = forms.CharField(
+        label=("Mot de passe"),
+        widget=forms.PasswordInput(attrs={'class': 'box',
+                                          'required': 'true',
+
+        })
+    )
+
 
 
 

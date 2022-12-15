@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'carnet.html' %}
 
 {% load static %}
 {% load crispy_forms_tags %}
@@ -6,18 +6,17 @@
 
 {% block navbar %}
 
-            {% include 'nav.html' %}
+{% include 'nav.html' %}
             
 {% endblock %}
 
 {% block content %}
-                    {% include 'carnet.html' %}
+{{ block.super }} 
 
-
-
+{% if familiau %}
 <section id="tabl1">
 	<table class="table table-bordered">
-  <thead>
+  <thead class="table-active" style="font-size:17px;">
     <tr>
       <th scope="col">Date</th>
       <th scope="col">Tare</th>
@@ -28,21 +27,23 @@
     </tr>
   </thead>
   <tbody>
-    {% for family in familiau %}
-    <tr>
-      <th scope="row">{{family.date}}</th>
-      <td>{{family.Tare}}</td>
-      <td>{{family.Prescription_Observations}}</td>
-      <td>{{family.Prescripteur}}</td>
-      <td>{{family.lieu}}</td>
-      <td>{{family.fichier}}</td>
+    {% for z in familiau %}
+    <tr style="font-size:17px;">
+      <th scope="row">{{z.date}}</th>
+      <td>{{z.Tare}}</td>
+      <td>{{z.Prescription_Observations}}</td>
+      <td>{{z.Prescripteur}}</td>
+      <td>{{z.lieu}}</td>
+      <td>{{z.fichier}}</td>
     </tr>
     {% endfor %}
   </tbody>
 </table><br><br>
+<p> <h3 style="text-align: center;"> <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br> 
+{% else %}
 
-       <p> <h3 style="text-align: center;"> <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br>  
-
+       <p> <h3 style="text-align: center;">Pas d'entecedant familiaux <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br>  
+{% endif %}
 </section><br>
   
     

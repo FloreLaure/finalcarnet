@@ -32,6 +32,15 @@ class UserProfil(models.Model):
     def __str__(self):
         return f"{self.Date_de_naissance.strftime('%d-%m-%Y')}"
 
+    @property
+    def fileURL(self):
+        try:
+            url = self.photo.url
+        except:
+            url = ''
+        return url
+        
+
 
 
 

@@ -27,15 +27,16 @@
                                         </div>
                 
         <form action="" method="POST">
+            <h3>Renseigner ce formulaire</h3>
             {% csrf_token %}
             <input type="text" placeholder="Nom d'utilisateur" name="username" class="box">
-            <input type="password" placeholder="Mot de passe" name="password1" class="box">
+            <input type="password" placeholder="Mot de passe" name="password" class="box">
 
             <input type="submit" value="Se déconnecter" class="btn">
 
         </form>
 
-    </div>
+ 
 
 </section>
 <script src="{% static 'js/script.js' %}"></script>

@@ -39,24 +39,30 @@ def index(request):
 
 
 def Voirvaccinal(request):
-    vaccinale = vaccinal.objects.filter(vaccine_id=request.user.pk)  
-    return render(request,"vaccinal.html",{'vaccinale':vaccinale})  
+    carnet = UserProfil.objects.get(user_id=request.user.pk)
+    vaccinale = vaccinal.objects.filter(vaccine_id=request.user.pk).all() 
+    context = {"page_title":"Sante", "carnet":carnet, "vaccinale":vaccinale} 
+    return render(request,"vaccinal.html",context)  
 
 
 
 # la vue autre prsente les autres antécedants ( consultation et autre)
 
 def Voirautre(request):
-    autes = ajouAutre.objects.filter(autr_id=request.user.pk)  
-    return render(request,"autre.html",{'autres':autres})  
+    carnet = UserProfil.objects.get(user_id=request.user.pk)
+    autes = ajouAutre.objects.filter(autr_id=request.user.pk).all() 
+    context = {"page_title":"Sante", "carnet":carnet, "autes":autes}  
+    return render(request,"autre.html",context)  
 
 
 
 # la vue familiaux présente les antécédents familiaux du User
 
 def Voirfamiliaux(request):
-    familiau = familiaux.objects.filter(famille_id=request.user.pk)  
-    return render(request,"familiaux.html",{'familiau':familiau})  
+    carnet = UserProfil.objects.get(user_id=request.user.pk)
+    familiau = familiaux.objects.filter(famille_id=request.user.pk).all()  
+    context = {"page_title":"Sante", "carnet":carnet, "familiau":familiau} 
+    return render(request,"familiaux.html",context)  
 
 ## fin antécedant
 
@@ -217,7 +223,6 @@ def sante(request):
 
 def LoginView(request):
     if request.method == 'POST':
-
         username = request.POST.get['username']
         password = request.POST.get['password']
         user = authenticate(request, username=username, password=password)
@@ -237,12 +242,12 @@ def LogoutView(request):
         password = request.POST.get['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return render(request, 'index.html', context)
+            logout(request, user)
+            return redirect('')
 
             ...
         else:
             print("---ERRORS---", form.errors, form_profile.errors)
             ...
     else:
-        return render(request, 'index.html', context)
+        return redirect('logout')

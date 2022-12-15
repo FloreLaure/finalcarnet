@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'carnet.html' %}
 
 {% load static %}
 {% load crispy_forms_tags %}
@@ -6,15 +6,16 @@
 
 {% block navbar %}
 
-            {% include 'nav.html' %}
+{% include 'nav.html' %}
             
 {% endblock %}
 
 {% block content %}
-{% include 'carnet.html' %}
+{{ block.super }} 
+{% if vaccinale %}
 <section id="tabl2">
 	<table class="table table-bordered">
-  <thead>
+  <thead class="table-active" style="font-size:17px;">
     <tr>
       <th scope="col">Date</th>
       <th scope="col">Vaccins</th>
@@ -24,20 +25,24 @@
     </tr>
   </thead>
   <tbody>
-    {% if vaccinale %}
-    <tr>
-      <th scope="row" class="box">{{vaccinale.date}}</th>
-      <td class="box">{{vaccinale.Vaccin}}</td>
-      <td>{{vaccinale.Prescription_Observations}}</td>
-      <td>{{vaccinale.Prescripteur}}</td>
-      <td>{{vaccinale.lieu}}</td>
+    {% for x in vaccinale %}
+    <tr style="font-size:17px;">
+      <th scope="row" class="box">{{x.date}}</th>
+      <td class="box">{{x.Vaccin}}</td>
+      <td>{{x.Prescription_Observations}}</td>
+      <td>{{x.Prescripteur}}</td>
+      <td>{{x.lieu}}</td>
     </tr>
-    {% endif %}
+    {% endfor %}
   </tbody>
 </table><br><br>
 
-<p> <h3 style="text-align: center;"><a href="{% url 'ajouvaccin' %}" class="btn btn-primary">Ajouter</a> </h3></p><br><br>  
+<p> <h3 style="text-align: center;"><a href="{% url 'ajouvaccin' %}" class="btn btn-primary">Ajouter</a> </h3></p><br><br> 
+{% else %} 
+
+<p> <h3 style="text-align: center;"> Pa d'entécédant vaccinal<a href="{% url 'ajouvaccin' %}" class="btn btn-primary">Ajouter</a> </h3></p><br><br> 
 </section>
+{% endif %}
     {% endblock %}
   </body>
 </html>
