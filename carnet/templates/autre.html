@@ -40,8 +40,8 @@
       <td>{{y.Prescription_Observations}}</td>
       <td>{{y.Prescripteur}}</td>
       <td>{{y.lieu}}</td>
-      <td>{{y.fichier}}</td>
-      
+      <td><a href="{{y.fichier.url}}" class="btn btn-primary">{{y.fichier}}</a></td>
+    </tr>
     </tr>
     {% endfor %}
   </tbody>

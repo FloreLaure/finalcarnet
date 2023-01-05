@@ -34,7 +34,8 @@
       <td>{{z.Prescription_Observations}}</td>
       <td>{{z.Prescripteur}}</td>
       <td>{{z.lieu}}</td>
-      <td>{{z.fichier}}</td>
+      <td><a href="{{z.fichier.url}}" class="btn btn-primary">{{z.fichier}}</a></td>
+
     </tr>
     {% endfor %}
   </tbody>
@@ -42,7 +43,7 @@
 <p> <h3 style="text-align: center;"> <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br> 
 {% else %}
 
-       <p> <h3 style="text-align: center;">Pas d'entecedant familiaux <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br>  
+       <p> <h3 style="text-align: center;">Pas d'antecedant familiaux <a href="{% url 'ajoufamiliaux' %}" class="btn btn-primary">Ajouter</a> </h3></p><br>  
 {% endif %}
 </section><br>
   
